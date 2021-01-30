@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <title>원페이지쇼핑몰</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+    <style>
+        .myitem {
+            width: 500px;
+            height: 400px;
+            background-color: green;
+            background-image: url(https://t1.daumcdn.net/cfile/tistory/2751DC41586081241E);
+            background-size: cover;
+        }
+
+        .price {
+            font-size: 12px;
+        }
+
+        .desc {
+            width: 500px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        * {
+            font-family: 'Yeon Sung', cursive;
+        }
+
+        .order-box {
+            width: 500px;
+        }
+
+        .mybtn {
+            width: 100px;
+            margin: auto;
+            display: block;
+        }
+
+        .wrap {
+            margin: auto;
+            width: 500px;
+        }
+
+        .rate {
+            color: blue;
+        }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+                data: {},
+                success: function (response) {
+                    let nowRate = response[1]['rate'];
+                    $('#rate-box').text(nowRate)
+
+                }
+            })
+        });
+
+        function order() {
+            let name = $('#order-name').val();
+            let count = $('#order-count').val();
+            let address = $('#order-address').val();
+            let phone = $('#order-phone').val();
+
+            if (name == '') {
+                alert('이름을 입력하세요');
+            } else if (count == '--수량을 선택하세요--') {
+                alert('수량을 입력하세요');
+            } else if (address == '') {
+                alert('주소를 입력하세요');
+            } else if (phone == '') {
+                alert('전화번호를 입력하세요');
+            } else {
+                alert('주문이 완료되었습니다!')
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="myitem"></div>
+    <div class="desc">
+        <h1>바다숲꿈번지 | 작품 1호 <span class="price">가격 7,900원/개</span></h1>
+        <p>그리고 만든 것들의 바다와 숲 죽고 버려진 것들에게 다시 아름다울 기회를</p>
+        <p class="rate">달러-원 환율: <span id="rate-box">1,000</span></p>
+    </div>
+    <div class="order-box">
+        <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-sm">주문자 이름</span>
+            </div>
+            <input id="order-name" type="text" class="form-control" aria-label="Small"
+                   aria-describedby="inputGroup-sizing-sm">
+        </div>
+
+        <div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">수량</label>
+                </div>
+                <select id="order-count" class="custom-select">
+                    <option selected>--수량을 선택하세요--</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+        </div>
+        <div class="order-box">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">주소</span>
+                </div>
+                <input id="order-address" type="text" class="form-control" aria-label="Small"
+                       aria-describedby="inputGroup-sizing-sm">
+            </div>
+        </div>
+        <div class="order-box">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">전화번호</span>
+                </div>
+                <input id="order-phone" type="text" class="form-control" aria-label="Small"
+                       aria-describedby="inputGroup-sizing-sm">
+            </div>
+        </div>
+        <button onclick="order()" type="button" class="btn btn-primary mybtn">주문하기</button>
+
+
+    </div>
+</div>
+
+
+</body>
+
+
+</html>
